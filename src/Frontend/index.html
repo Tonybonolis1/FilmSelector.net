@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OMDB Movie Search - Buscador de Películas</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <h1>🎬 OMDB Movie Search</h1>
+                    <p class="subtitle">Buscador de Películas - Open Movie Database</p>
+                </div>
+                <div id="authButtons" style="display: flex; gap: 10px;">
+                    <!-- Se insertarán dinámicamente -->
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <!-- Sección de búsqueda -->
+            <section class="search-section">
+                <h2>Buscar Película</h2>
+                <form id="searchForm" class="search-form">
+                    <div class="form-group">
+                        <label for="searchTitle">Título de la película:</label>
+                        <input 
+                            type="text" 
+                            id="searchTitle" 
+                            name="searchTitle" 
+                            placeholder="Ej: Guardians of the Galaxy, Inception, Titanic..."
+                            required
+                        >
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <span class="btn-text">Buscar</span>
+                        <span class="btn-loader" style="display: none;">🔄</span>
+                    </button>
+                </form>
+            </section>
+
+            <!-- Mensajes de estado -->
+            <div id="messageContainer" class="message-container"></div>
+
+            <!-- Sección de resultados de búsqueda -->
+            <section id="resultsSection" class="results-section" style="display: none;">
+                <h2>Resultados de Búsqueda</h2>
+                <div class="movies-grid" id="moviesGrid">
+                    <!-- Las películas se insertarán aquí dinámicamente -->
+                </div>
+            </section>
+
+            <!-- Sección de detalles de película -->
+            <section id="detailsSection" class="details-section" style="display: none;">
+                <h2>Detalles de la Película</h2>
+                <div id="movieDetails" class="movie-details">
+                    <!-- Los detalles se insertarán aquí dinámicamente -->
+                </div>
+                <button id="closeDetailsBtn" class="btn btn-secondary">Volver a Resultados</button>
+            </section>
+        </main>
+
+        <footer>
+            <p>Powered by OMDB API - Proyecto de ejemplo con .NET 8 + Vanilla JavaScript</p>
+        </footer>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
