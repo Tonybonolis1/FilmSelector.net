@@ -56,12 +56,12 @@ Sistema completo de autenticación y gestión de favoritos para la aplicación M
 
 ```
 Backend/
-├── MarineTraffic.Domain/
+├── FilmSelector.Domain/
 │   └── Entities/
 │       ├── User.cs          # Entidad de usuario
 │       └── Favorite.cs      # Entidad de favorito
 │
-├── MarineTraffic.Application/
+├── FilmSelector.Application/
 │   ├── DTOs/
 │   │   ├── Requests/
 │   │   │   ├── LoginRequestDto.cs
@@ -78,7 +78,7 @@ Backend/
 │       ├── AuthService.cs   # Lógica de autenticación
 │       └── FavoriteService.cs # Lógica de favoritos
 │
-└── MarineTraffic.Api/
+└── FilmSelector.Api/
     └── Controllers/
         ├── AuthController.cs      # Endpoints de auth
         └── FavoritesController.cs # Endpoints de favoritos (protegidos)
@@ -102,7 +102,7 @@ Frontend/
 ### 1. Ejecutar el Backend
 
 ```bash
-cd Backend/MarineTraffic.Api
+cd Backend/FilmSelector.Api
 dotnet run
 ```
 
@@ -182,10 +182,10 @@ Abre `Frontend/index.html` en tu navegador o usa un servidor web local.
 ## 📦 Paquetes NuGet Agregados
 
 ```xml
-<!-- MarineTraffic.Api -->
+<!-- FilmSelector.Api -->
 <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.0" />
 
-<!-- MarineTraffic.Application -->
+<!-- FilmSelector.Application -->
 <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="8.0.0" />
 <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.0.0" />
 ```

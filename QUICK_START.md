@@ -1,11 +1,11 @@
-# Guía Rápida de Inicio - MarineTraffic
+# Guía Rápida de Inicio - FilmSelector
 
 ## 🚀 Inicio Rápido (5 minutos)
 
 ### 1. Configurar API Key
 ```powershell
 # Editar este archivo:
-src\Backend\MarineTraffic.Api\appsettings.Development.json
+src\Backend\FilmSelector.Api\appsettings.Development.json
 
 # Cambiar:
 "ApiKey": "YOUR_DEVELOPMENT_API_KEY_HERE"
@@ -13,7 +13,7 @@ src\Backend\MarineTraffic.Api\appsettings.Development.json
 
 ### 2. Ejecutar Backend
 ```powershell
-cd src\Backend\MarineTraffic.Api
+cd src\Backend\FilmSelector.Api
 dotnet run
 ```
 
@@ -54,10 +54,10 @@ dotnet clean
 
 ### Error: "API Key is invalid"
 - Verificar que la API Key en appsettings.Development.json sea correcta
-- Obtener una nueva en: https://www.marinetraffic.com/en/ais-api-services
+- Obtener una nueva en: https://www.FilmSelector.com/en/ais-api-services
 
 ### Error: "Port 5001 already in use"
-- Cambiar el puerto en `src\Backend\MarineTraffic.Api\Properties\launchSettings.json`
+- Cambiar el puerto en `src\Backend\FilmSelector.Api\Properties\launchSettings.json`
 - Actualizar también en `src\Frontend\js\app.js`
 
 ### Frontend no carga

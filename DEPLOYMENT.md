@@ -1,4 +1,4 @@
-# Guía de Deployment - MarineTraffic
+# Guía de Deployment - FilmSelector
 
 ## 🚀 Opciones de Deployment
 
@@ -16,38 +16,38 @@
 az login
 
 # Crear grupo de recursos
-az group create --name rg-marinetraffic --location eastus
+az group create --name rg-FilmSelector --location eastus
 
 # Crear App Service Plan
-az appservice plan create --name plan-marinetraffic --resource-group rg-marinetraffic --sku B1 --is-linux
+az appservice plan create --name plan-FilmSelector --resource-group rg-FilmSelector --sku B1 --is-linux
 
 # Crear Web App
-az webapp create --resource-group rg-marinetraffic --plan plan-marinetraffic --name app-marinetraffic --runtime "DOTNET|8.0"
+az webapp create --resource-group rg-FilmSelector --plan plan-FilmSelector --name app-FilmSelector --runtime "DOTNET|8.0"
 ```
 
 2. **Configurar Variables de Entorno**
 ```bash
-az webapp config appsettings set --resource-group rg-marinetraffic --name app-marinetraffic --settings \
-  MarineTraffic__ApiKey="TU_API_KEY" \
-  MarineTraffic__BaseUrl="https://services.marinetraffic.com/api" \
-  MarineTraffic__TimeoutSeconds="30" \
-  MarineTraffic__RetryCount="3" \
-  MarineTraffic__RetryBackoffSeconds="2"
+az webapp config appsettings set --resource-group rg-FilmSelector --name app-FilmSelector --settings \
+  FilmSelector__ApiKey="TU_API_KEY" \
+  FilmSelector__BaseUrl="https://services.FilmSelector.com/api" \
+  FilmSelector__TimeoutSeconds="30" \
+  FilmSelector__RetryCount="3" \
+  FilmSelector__RetryBackoffSeconds="2"
 ```
 
 3. **Publicar desde Visual Studio**
-- Click derecho en `MarineTraffic.Api` > Publicar
+- Click derecho en `FilmSelector.Api` > Publicar
 - Seleccionar Azure > Azure App Service (Linux)
 - Seleccionar tu suscripción y la app creada
 - Publicar
 
 4. **O Publicar desde CLI**
 ```bash
-cd src/Backend/MarineTraffic.Api
+cd src/Backend/FilmSelector.Api
 dotnet publish -c Release -o ./publish
 cd publish
 zip -r app.zip .
-az webapp deployment source config-zip --resource-group rg-marinetraffic --name app-marinetraffic --src app.zip
+az webapp deployment source config-zip --resource-group rg-FilmSelector --name app-FilmSelector --src app.zip
 ```
 
 ---
@@ -57,7 +57,7 @@ az webapp deployment source config-zip --resource-group rg-marinetraffic --name 
 #### 1. Crear Dockerfile
 
 ```dockerfile
-# En: src/Backend/MarineTraffic.Api/Dockerfile
+# En: src/Backend/FilmSelector.Api/Dockerfile
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
@@ -66,23 +66,23 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
-COPY ["src/Backend/MarineTraffic.Api/MarineTraffic.Api.csproj", "MarineTraffic.Api/"]
-COPY ["src/Backend/MarineTraffic.Application/MarineTraffic.Application.csproj", "MarineTraffic.Application/"]
-COPY ["src/Backend/MarineTraffic.Domain/MarineTraffic.Domain.csproj", "MarineTraffic.Domain/"]
-COPY ["src/Backend/MarineTraffic.Infrastructure/MarineTraffic.Infrastructure.csproj", "MarineTraffic.Infrastructure/"]
+COPY ["src/Backend/FilmSelector.Api/FilmSelector.Api.csproj", "FilmSelector.Api/"]
+COPY ["src/Backend/FilmSelector.Application/FilmSelector.Application.csproj", "FilmSelector.Application/"]
+COPY ["src/Backend/FilmSelector.Domain/FilmSelector.Domain.csproj", "FilmSelector.Domain/"]
+COPY ["src/Backend/FilmSelector.Infrastructure/FilmSelector.Infrastructure.csproj", "FilmSelector.Infrastructure/"]
 
-RUN dotnet restore "MarineTraffic.Api/MarineTraffic.Api.csproj"
+RUN dotnet restore "FilmSelector.Api/FilmSelector.Api.csproj"
 COPY src/Backend/ .
-WORKDIR "/src/MarineTraffic.Api"
-RUN dotnet build "MarineTraffic.Api.csproj" -c Release -o /app/build
+WORKDIR "/src/FilmSelector.Api"
+RUN dotnet build "FilmSelector.Api.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "MarineTraffic.Api.csproj" -c Release -o /app/publish
+RUN dotnet publish "FilmSelector.Api.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "MarineTraffic.Api.dll"]
+ENTRYPOINT ["dotnet", "FilmSelector.Api.dll"]
 ```
 
 #### 2. Crear docker-compose.yml
@@ -93,19 +93,19 @@ ENTRYPOINT ["dotnet", "MarineTraffic.Api.dll"]
 version: '3.8'
 
 services:
-  marinetraffic-api:
+  FilmSelector-api:
     build:
       context: .
-      dockerfile: src/Backend/MarineTraffic.Api/Dockerfile
+      dockerfile: src/Backend/FilmSelector.Api/Dockerfile
     ports:
       - "5001:80"
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
-      - MarineTraffic__ApiKey=${MARINETRAFFIC_API_KEY}
-      - MarineTraffic__BaseUrl=https://services.marinetraffic.com/api
-      - MarineTraffic__TimeoutSeconds=30
-      - MarineTraffic__RetryCount=3
-      - MarineTraffic__RetryBackoffSeconds=2
+      - FilmSelector__ApiKey=${FilmSelector_API_KEY}
+      - FilmSelector__BaseUrl=https://services.FilmSelector.com/api
+      - FilmSelector__TimeoutSeconds=30
+      - FilmSelector__RetryCount=3
+      - FilmSelector__RetryBackoffSeconds=2
     restart: unless-stopped
 ```
 
@@ -113,7 +113,7 @@ services:
 
 ```env
 # .env (no subir a git)
-MARINETRAFFIC_API_KEY=tu_api_key_aqui
+FilmSelector_API_KEY=tu_api_key_aqui
 ```
 
 #### 4. Ejecutar
@@ -144,8 +144,8 @@ docker-compose down
 
 1. **Publicar la aplicación**
 ```powershell
-cd src\Backend\MarineTraffic.Api
-dotnet publish -c Release -o C:\inetpub\wwwroot\marinetraffic
+cd src\Backend\FilmSelector.Api
+dotnet publish -c Release -o C:\inetpub\wwwroot\FilmSelector
 ```
 
 2. **Configurar IIS**
@@ -191,27 +191,27 @@ sudo apt install nginx -y
 dotnet publish -c Release -o ./publish
 
 # Transferir con SCP
-scp -r ./publish user@servidor:/var/www/marinetraffic
+scp -r ./publish user@servidor:/var/www/FilmSelector
 ```
 
 #### 3. Crear servicio systemd
 
 ```bash
-# /etc/systemd/system/marinetraffic.service
+# /etc/systemd/system/FilmSelector.service
 
 [Unit]
-Description=MarineTraffic API
+Description=FilmSelector API
 After=network.target
 
 [Service]
-WorkingDirectory=/var/www/marinetraffic
-ExecStart=/home/user/.dotnet/dotnet /var/www/marinetraffic/MarineTraffic.Api.dll
+WorkingDirectory=/var/www/FilmSelector
+ExecStart=/home/user/.dotnet/dotnet /var/www/FilmSelector/FilmSelector.Api.dll
 Restart=always
 RestartSec=10
-SyslogIdentifier=marinetraffic
+SyslogIdentifier=FilmSelector
 User=www-data
 Environment=ASPNETCORE_ENVIRONMENT=Production
-Environment=MarineTraffic__ApiKey=TU_API_KEY
+Environment=FilmSelector__ApiKey=TU_API_KEY
 
 [Install]
 WantedBy=multi-user.target
@@ -220,7 +220,7 @@ WantedBy=multi-user.target
 #### 4. Configurar Nginx
 
 ```nginx
-# /etc/nginx/sites-available/marinetraffic
+# /etc/nginx/sites-available/FilmSelector
 
 server {
     listen 80;
@@ -243,16 +243,16 @@ server {
 
 ```bash
 # Activar servicio
-sudo systemctl enable marinetraffic
-sudo systemctl start marinetraffic
+sudo systemctl enable FilmSelector
+sudo systemctl start FilmSelector
 
 # Activar Nginx
-sudo ln -s /etc/nginx/sites-available/marinetraffic /etc/nginx/sites-enabled/
+sudo ln -s /etc/nginx/sites-available/FilmSelector /etc/nginx/sites-enabled/
 sudo nginx -t
 sudo systemctl restart nginx
 
 # Ver logs
-sudo journalctl -u marinetraffic -f
+sudo journalctl -u FilmSelector -f
 ```
 
 ---
@@ -264,10 +264,10 @@ sudo journalctl -u marinetraffic -f
 #### Azure App Service
 ```bash
 # Configurar dominio personalizado
-az webapp config hostname add --resource-group rg-marinetraffic --webapp-name app-marinetraffic --hostname tu-dominio.com
+az webapp config hostname add --resource-group rg-FilmSelector --webapp-name app-FilmSelector --hostname tu-dominio.com
 
 # Habilitar HTTPS
-az webapp update --resource-group rg-marinetraffic --name app-marinetraffic --https-only true
+az webapp update --resource-group rg-FilmSelector --name app-FilmSelector --https-only true
 ```
 
 #### Let's Encrypt (Linux)
@@ -388,12 +388,12 @@ jobs:
       run: dotnet test --no-restore --verbosity normal
     
     - name: Publish
-      run: dotnet publish src/Backend/MarineTraffic.Api/MarineTraffic.Api.csproj -c Release -o ./publish
+      run: dotnet publish src/Backend/FilmSelector.Api/FilmSelector.Api.csproj -c Release -o ./publish
     
     - name: Deploy to Azure
       uses: azure/webapps-deploy@v2
       with:
-        app-name: app-marinetraffic
+        app-name: app-FilmSelector
         publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
         package: ./publish
 ```
@@ -421,10 +421,10 @@ jobs:
 ### Azure App Service
 ```bash
 # Ver deployment slots
-az webapp deployment slot list --resource-group rg-marinetraffic --name app-marinetraffic
+az webapp deployment slot list --resource-group rg-FilmSelector --name app-FilmSelector
 
 # Swap slots
-az webapp deployment slot swap --resource-group rg-marinetraffic --name app-marinetraffic --slot staging --target-slot production
+az webapp deployment slot swap --resource-group rg-FilmSelector --name app-FilmSelector --slot staging --target-slot production
 ```
 
 ### Docker

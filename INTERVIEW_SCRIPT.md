@@ -2,7 +2,7 @@
 
 ## Introducción (1-2 minutos)
 
-"Buenos días/tardes. Hoy voy a presentar un sistema completo de consulta de embarcaciones que desarrollé utilizando la API de MarineTraffic, con enfoque en identificar buques con destino al puerto de Santa Marta, Colombia.
+"Buenos días/tardes. Hoy voy a presentar un sistema completo de consulta de embarcaciones que desarrollé utilizando la API de FilmSelector, con enfoque en identificar buques con destino al puerto de Santa Marta, Colombia.
 
 El proyecto está construido con:
 - Backend en .NET 8 Web API con Clean Architecture
@@ -33,15 +33,15 @@ Voy a mostrar primero la arquitectura, luego la demo en vivo, y finalmente los a
 - DTOs para comunicación entre capas
 - Mapeos entre entidades y DTOs
 
-[Mostrar: IMarineTrafficClient.cs y VesselService.cs]
+[Mostrar: IFilmSelectorClient.cs y VesselService.cs]
 
 **3. Infraestructura:**
-- Implementación del cliente HTTP para MarineTraffic
+- Implementación del cliente HTTP para FilmSelector
 - HttpClientFactory para gestión eficiente de conexiones
 - Polly para resiliencia: reintentos con backoff exponencial y circuit breaker
 - Configuración con IOptions<T>
 
-[Mostrar: MarineTrafficHttpClient.cs y ServiceCollectionExtensions.cs]
+[Mostrar: FilmSelectorHttpClient.cs y ServiceCollectionExtensions.cs]
 
 **4. Presentación (API):**
 - Controladores RESTful
@@ -109,7 +109,7 @@ Voy a ejecutar una búsqueda..."
 
 **D - Dependency Inversion:**
 - Dependemos de abstracciones, no de implementaciones
-- VesselService depende de IMarineTrafficClient, no de la implementación HTTP
+- VesselService depende de IFilmSelectorClient, no de la implementación HTTP
 
 [Mostrar: inyección de dependencias en VesselService.cs]"
 
@@ -153,7 +153,7 @@ Por ejemplo, este test verifica que cuando el cliente falla, el servicio maneja 
 
 "La API Key nunca está hardcodeada:
 
-[Mostrar: appsettings.json y MarineTrafficOptions.cs]
+[Mostrar: appsettings.json y FilmSelectorOptions.cs]
 
 - Uso del patrón IOptions<T> de .NET
 - Configuración en appsettings.json para desarrollo

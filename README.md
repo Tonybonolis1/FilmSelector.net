@@ -1,8 +1,8 @@
-# 🚢 MarineTraffic - Sistema de Consulta de Embarcaciones
+# 🚢 FilmSelector - Sistema de Consulta de Embarcaciones
 
 ## 📋 Descripción del Proyecto
 
-Este es un proyecto de prueba técnica que implementa un sistema completo para consultar información de embarcaciones utilizando la API de MarineTraffic, con enfoque especial en identificar embarcaciones con destino al puerto de Santa Marta, Colombia.
+Este es un proyecto de prueba técnica que implementa un sistema completo para consultar información de embarcaciones utilizando la API de FilmSelector, con enfoque especial en identificar embarcaciones con destino al puerto de Santa Marta, Colombia.
 
 **Stack Tecnológico:**
 - **Backend:** ASP.NET Core 8.0 Web API (C#)
@@ -19,10 +19,10 @@ Este es un proyecto de prueba técnica que implementa un sistema completo para c
 El proyecto sigue los principios de **Clean Architecture** (también conocida como Arquitectura Hexagonal u Onion Architecture), con separación clara de responsabilidades:
 
 ```
-MarineTraffic/
+FilmSelector/
 ├── src/
 │   ├── Backend/
-│   │   ├── MarineTraffic.Domain/          # Capa de Dominio
+│   │   ├── FilmSelector.Domain/          # Capa de Dominio
 │   │   │   ├── Entities/                  # Entidades de negocio
 │   │   │   │   ├── Vessel.cs
 │   │   │   │   ├── VoyageInfo.cs
@@ -31,9 +31,9 @@ MarineTraffic/
 │   │   │   └── Common/
 │   │   │       └── Result.cs              # Tipo genérico para resultados
 │   │   │
-│   │   ├── MarineTraffic.Application/     # Capa de Aplicación
+│   │   ├── FilmSelector.Application/     # Capa de Aplicación
 │   │   │   ├── Interfaces/                # Interfaces (inversión de dependencias)
-│   │   │   │   └── IMarineTrafficClient.cs
+│   │   │   │   └── IFilmSelectorClient.cs
 │   │   │   ├── Services/                  # Servicios de aplicación
 │   │   │   │   ├── VesselService.cs
 │   │   │   │   └── PortService.cs
@@ -42,15 +42,15 @@ MarineTraffic/
 │   │   │   │   └── External/              # DTOs de API externa
 │   │   │   └── Mappings/                  # Mapeo de entidades a DTOs
 │   │   │
-│   │   ├── MarineTraffic.Infrastructure/  # Capa de Infraestructura
+│   │   ├── FilmSelector.Infrastructure/  # Capa de Infraestructura
 │   │   │   ├── Clients/                   # Implementación de clientes HTTP
-│   │   │   │   └── MarineTrafficHttpClient.cs
+│   │   │   │   └── FilmSelectorHttpClient.cs
 │   │   │   ├── Configuration/             # Configuración (IOptions pattern)
-│   │   │   │   └── MarineTrafficOptions.cs
+│   │   │   │   └── FilmSelectorOptions.cs
 │   │   │   └── Extensions/                # Extensiones de servicios
 │   │   │       └── ServiceCollectionExtensions.cs
 │   │   │
-│   │   └── MarineTraffic.Api/             # Capa de Presentación
+│   │   └── FilmSelector.Api/             # Capa de Presentación
 │   │       ├── Controllers/               # Controladores Web API
 │   │       │   ├── VesselsController.cs
 │   │       │   └── PortsController.cs
@@ -67,12 +67,12 @@ MarineTraffic/
 │           └── app.js                     # Lógica de la aplicación
 │
 ├── tests/
-│   └── MarineTraffic.Tests/              # Tests unitarios
+│   └── FilmSelector.Tests/              # Tests unitarios
 │       ├── Services/                      # Tests de servicios
 │       ├── Domain/                        # Tests de lógica de dominio
 │       └── Mappings/                      # Tests de mapeos
 │
-└── MarineTraffic.sln                     # Solución de Visual Studio
+└── FilmSelector.sln                     # Solución de Visual Studio
 ```
 
 ### 📐 Capas de la Arquitectura
@@ -98,7 +98,7 @@ MarineTraffic/
 - **Propósito:** Implementa detalles técnicos y acceso a recursos externos
 - **Características:**
   - Implementa las interfaces definidas en Application
-  - Cliente HTTP para MarineTraffic API
+  - Cliente HTTP para FilmSelector API
   - Configuración con `IOptions<T>`
   - Políticas de resiliencia con Polly
   - HttpClientFactory para gestión eficiente de conexiones
@@ -120,7 +120,7 @@ MarineTraffic/
 
 - [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
 - Editor de código (Visual Studio 2022, VS Code o Rider)
-- API Key de MarineTraffic (obtener en [marinetraffic.com](https://www.marinetraffic.com/en/ais-api-services))
+- API Key de FilmSelector (obtener en [FilmSelector.com](https://www.FilmSelector.com/en/ais-api-services))
 - Navegador web moderno
 
 ### 1. Clonar o Descargar el Proyecto
@@ -129,14 +129,14 @@ MarineTraffic/
 cd d:\informacion\Nueva carpeta - copia\tony
 ```
 
-### 2. Configurar la API Key de MarineTraffic
+### 2. Configurar la API Key de FilmSelector
 
-Editar el archivo `src/Backend/MarineTraffic.Api/appsettings.Development.json`:
+Editar el archivo `src/Backend/FilmSelector.Api/appsettings.Development.json`:
 
 ```json
 {
-  "MarineTraffic": {
-    "BaseUrl": "https://services.marinetraffic.com/api",
+  "FilmSelector": {
+    "BaseUrl": "https://services.FilmSelector.com/api",
     "ApiKey": "TU_API_KEY_AQUI",
     "TimeoutSeconds": 60,
     "RetryCount": 2,
@@ -149,7 +149,7 @@ Editar el archivo `src/Backend/MarineTraffic.Api/appsettings.Development.json`:
 
 ```bash
 # En PowerShell
-$env:MarineTraffic__ApiKey = "TU_API_KEY_AQUI"
+$env:FilmSelector__ApiKey = "TU_API_KEY_AQUI"
 ```
 
 ### 3. Restaurar Dependencias
@@ -173,7 +173,7 @@ dotnet build
 Desde la raíz del proyecto:
 
 ```powershell
-cd src\Backend\MarineTraffic.Api
+cd src\Backend\FilmSelector.Api
 dotnet run
 ```
 
@@ -365,7 +365,7 @@ GET /health
 
 ### HttpClientFactory
 ```csharp
-services.AddHttpClient<IMarineTrafficClient, MarineTrafficHttpClient>(client =>
+services.AddHttpClient<IFilmSelectorClient, FilmSelectorHttpClient>(client =>
 {
     client.BaseAddress = new Uri(options.BaseUrl);
     client.Timeout = TimeSpan.FromSeconds(options.TimeoutSeconds);
@@ -415,14 +415,14 @@ services.AddHttpClient<IMarineTrafficClient, MarineTrafficHttpClient>(client =>
 ### S - Single Responsibility Principle
 - ✅ Cada clase tiene una única responsabilidad
 - ✅ `VesselService` solo maneja lógica de embarcaciones
-- ✅ `MarineTrafficHttpClient` solo hace llamadas HTTP
+- ✅ `FilmSelectorHttpClient` solo hace llamadas HTTP
 
 ### O - Open/Closed Principle
 - ✅ Servicios abiertos a extensión mediante interfaces
 - ✅ Cerrados a modificación (agregar nuevos servicios sin modificar existentes)
 
 ### L - Liskov Substitution Principle
-- ✅ Implementaciones de `IMarineTrafficClient` son intercambiables
+- ✅ Implementaciones de `IFilmSelectorClient` son intercambiables
 - ✅ Tests usan mocks sin cambiar comportamiento esperado
 
 ### I - Interface Segregation Principle
@@ -431,7 +431,7 @@ services.AddHttpClient<IMarineTrafficClient, MarineTrafficHttpClient>(client =>
 
 ### D - Dependency Inversion Principle
 - ✅ Dependencias en abstracciones, no en implementaciones concretas
-- ✅ `VesselService` depende de `IMarineTrafficClient`, no de la implementación HTTP
+- ✅ `VesselService` depende de `IFilmSelectorClient`, no de la implementación HTTP
 - ✅ Inyección de dependencias en toda la aplicación
 
 ---
@@ -581,7 +581,7 @@ Además, Polly maneja automáticamente errores transitorios con reintentos."
 
 ## 📚 Recursos y Documentación
 
-- [MarineTraffic API Documentation](https://servicedocs.marinetraffic.com/)
+- [FilmSelector API Documentation](https://servicedocs.FilmSelector.com/)
 - [.NET 8 Documentation](https://learn.microsoft.com/en-us/dotnet/core/whats-new/dotnet-8)
 - [Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
 - [Polly Documentation](https://github.com/App-vNext/Polly)
@@ -605,7 +605,7 @@ Proyecto desarrollado como prueba técnica para entrevista.
 
 ## ⭐ Agradecimientos
 
-- MarineTraffic por proveer la API de datos de embarcaciones
+- FilmSelector por proveer la API de datos de embarcaciones
 - Microsoft por el excelente ecosistema .NET
 - Comunidad open-source por las bibliotecas utilizadas
 

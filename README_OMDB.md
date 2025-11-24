@@ -24,16 +24,16 @@ Proyecto completo de ejemplo con **Backend ASP.NET Core Web API (.NET 8)** y **F
 tony/
 ├── src/
 │   ├── Backend/
-│   │   ├── MarineTraffic.Domain/          # Entidades de dominio (Movie, MovieDetails)
-│   │   ├── MarineTraffic.Application/     # Servicios, DTOs, Interfaces
-│   │   ├── MarineTraffic.Infrastructure/  # HttpClient, Polly, Configuración
-│   │   └── MarineTraffic.API/            # Controllers, Program.cs, Middleware
+│   │   ├── FilmSelector.Domain/          # Entidades de dominio (Movie, MovieDetails)
+│   │   ├── FilmSelector.Application/     # Servicios, DTOs, Interfaces
+│   │   ├── FilmSelector.Infrastructure/  # HttpClient, Polly, Configuración
+│   │   └── FilmSelector.API/            # Controllers, Program.cs, Middleware
 │   └── Frontend/
 │       ├── index.html                     # Interfaz de usuario
 │       ├── css/styles.css                 # Estilos (tema oscuro estilo Netflix)
 │       └── js/app.js                      # Lógica del cliente
 └── tests/
-    └── MarineTraffic.Tests/              # Tests unitarios (xUnit + Moq)
+    └── FilmSelector.Tests/              # Tests unitarios (xUnit + Moq)
 ```
 
 ### Capas de Clean Architecture
@@ -80,7 +80,7 @@ tony/
 ### 1. Ejecutar el Backend
 
 ```bash
-cd "d:\informacion\Nueva carpeta - copia\tony\src\Backend\MarineTraffic.API"
+cd "d:\informacion\Nueva carpeta - copia\tony\src\Backend\FilmSelector.API"
 dotnet run
 ```
 
@@ -271,7 +271,7 @@ public class OmdbOptions
 ### Ejecutar Tests
 
 ```bash
-cd tests/MarineTraffic.Tests
+cd tests/FilmSelector.Tests
 dotnet test
 ```
 

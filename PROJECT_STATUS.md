@@ -1,4 +1,4 @@
-# 🎉 PROYECTO COMPLETADO - MarineTraffic
+# 🎉 PROYECTO COMPLETADO - FilmSelector
 
 ## ✅ Estado del Proyecto
 
@@ -18,15 +18,15 @@
 - [x] `Result.cs` - Tipo genérico para resultados
 
 #### ✅ Capa de Aplicación
-- [x] `IMarineTrafficClient.cs` - Interfaz (inversión de dependencias)
+- [x] `IFilmSelectorClient.cs` - Interfaz (inversión de dependencias)
 - [x] `VesselService.cs` - Servicio de embarcaciones
 - [x] `PortService.cs` - Servicio de puertos
 - [x] DTOs de respuesta y externos
 - [x] Mapeos manuales (alternativa a AutoMapper)
 
 #### ✅ Capa de Infraestructura
-- [x] `MarineTrafficHttpClient.cs` - Cliente HTTP completo
-- [x] `MarineTrafficOptions.cs` - Configuración con IOptions<T>
+- [x] `FilmSelectorHttpClient.cs` - Cliente HTTP completo
+- [x] `FilmSelectorOptions.cs` - Configuración con IOptions<T>
 - [x] `ServiceCollectionExtensions.cs` - Extensiones con Polly
 - [x] HttpClientFactory configurado
 - [x] Reintentos con backoff exponencial
@@ -119,13 +119,13 @@
 
 1. **Configurar API Key**
 ```
-Editar: src/Backend/MarineTraffic.Api/appsettings.Development.json
+Editar: src/Backend/FilmSelector.Api/appsettings.Development.json
 Cambiar: "ApiKey": "TU_API_KEY_AQUI"
 ```
 
 2. **Ejecutar Backend**
 ```powershell
-cd src\Backend\MarineTraffic.Api
+cd src\Backend\FilmSelector.Api
 dotnet run
 ```
 
@@ -144,25 +144,25 @@ dotnet test
 ## 📊 Estructura del Proyecto
 
 ```
-MarineTraffic/
+FilmSelector/
 ├── src/
 │   ├── Backend/
-│   │   ├── MarineTraffic.Domain/        # Dominio (entidades, lógica)
-│   │   ├── MarineTraffic.Application/   # Aplicación (servicios, DTOs)
-│   │   ├── MarineTraffic.Infrastructure/# Infraestructura (HTTP, config)
-│   │   └── MarineTraffic.Api/           # API (controladores, middleware)
+│   │   ├── FilmSelector.Domain/        # Dominio (entidades, lógica)
+│   │   ├── FilmSelector.Application/   # Aplicación (servicios, DTOs)
+│   │   ├── FilmSelector.Infrastructure/# Infraestructura (HTTP, config)
+│   │   └── FilmSelector.Api/           # API (controladores, middleware)
 │   └── Frontend/                        # HTML + CSS + JS
 │       ├── index.html
 │       ├── css/styles.css
 │       └── js/app.js
 ├── tests/
-│   └── MarineTraffic.Tests/            # Tests unitarios
+│   └── FilmSelector.Tests/            # Tests unitarios
 ├── README.md                            # Documentación principal
 ├── QUICK_START.md                       # Inicio rápido
 ├── INTERVIEW_SCRIPT.md                  # Script para entrevista
 ├── TEST_DATA.md                         # Datos de prueba
 ├── DEPLOYMENT.md                        # Guía de deployment
-└── MarineTraffic.sln                   # Solución de Visual Studio
+└── FilmSelector.sln                   # Solución de Visual Studio
 ```
 
 ---
@@ -246,7 +246,7 @@ GET  /swagger
 
 ✅ Backend en .NET 8 con Clean Architecture
 ✅ Frontend en HTML + CSS + JS puro
-✅ Consumo de API de MarineTraffic
+✅ Consumo de API de FilmSelector
 ✅ Identificación de destino Santa Marta
 ✅ HttpClientFactory con Polly
 ✅ Principios SOLID aplicados

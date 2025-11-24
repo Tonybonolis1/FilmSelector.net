@@ -2,13 +2,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.2.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarineTraffic.Api", "MarineTraffic.Api\MarineTraffic.Api.csproj", "{22438EA5-3A51-2F4B-71F1-8D56BF59A5D5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilmSelector.Api", "FilmSelector.Api\FilmSelector.Api.csproj", "{22438EA5-3A51-2F4B-71F1-8D56BF59A5D5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarineTraffic.Application", "MarineTraffic.Application\MarineTraffic.Application.csproj", "{1679E029-1959-8E21-B625-55B1F1EC6147}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilmSelector.Application", "FilmSelector.Application\FilmSelector.Application.csproj", "{1679E029-1959-8E21-B625-55B1F1EC6147}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarineTraffic.Domain", "MarineTraffic.Domain\MarineTraffic.Domain.csproj", "{988F61AD-5F6F-32CC-51AF-A349D52DE102}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilmSelector.Domain", "FilmSelector.Domain\FilmSelector.Domain.csproj", "{988F61AD-5F6F-32CC-51AF-A349D52DE102}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarineTraffic.Infrastructure", "MarineTraffic.Infrastructure\MarineTraffic.Infrastructure.csproj", "{9D190A0E-157F-AADD-25E4-BAB7AD9212FF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilmSelector.Infrastructure", "FilmSelector.Infrastructure\FilmSelector.Infrastructure.csproj", "{9D190A0E-157F-AADD-25E4-BAB7AD9212FF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

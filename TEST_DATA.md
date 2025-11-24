@@ -225,16 +225,16 @@ GET http://localhost:5001/api/ports/santamarta/arrivals
 
 ## 📝 Notas Adicionales
 
-### Limitaciones de la API de MarineTraffic (versión gratuita)
+### Limitaciones de la API de FilmSelector (versión gratuita)
 - Límite de llamadas por mes
 - Datos pueden no estar actualizados en tiempo real
 - Algunos buques pueden no tener información completa
 
 ### Alternativas para Pruebas sin API Key
 Si no tienes una API Key válida, puedes:
-1. Modificar `MarineTrafficHttpClient.cs` para retornar datos mock
+1. Modificar `FilmSelectorHttpClient.cs` para retornar datos mock
 2. Usar los ejemplos JSON de arriba
-3. Implementar un `FakeMarineTrafficClient` para testing
+3. Implementar un `FakeFilmSelectorClient` para testing
 
 ### Formato de Fechas
 Las fechas en la API se manejan en formato ISO 8601:
