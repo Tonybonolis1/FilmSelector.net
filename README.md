@@ -1,4 +1,4 @@
-# 🚢 FilmSelector - Sistema de Gestión de Películas
+# 🎬 FilmSelector - Sistema de Gestión de Películas
 
 ## 📋 Descripción del Proyecto
 
@@ -640,9 +640,9 @@ Este proyecto es un ejemplo de prueba técnica para fines educativos y de demost
 
 ## 👨‍💻 Autor
 
-Proyecto desarrollado como prueba técnica para entrevista.
-
-**Contacto:** [Tu email o GitHub]
+Tony William Bonolis Loreo
+Tecnólogo en Análisis y Desarrollo de Software
+🔗GitHub
 
 ---
 
