@@ -1,4 +1,4 @@
-# Sistema de Login y Favoritos - Marine Traffic
+# Sistema de Login y Favoritos - Film Selector
 
 ## 📋 Descripción
 
@@ -215,4 +215,4 @@ Este sistema usa almacenamiento **en memoria** para demostración. Los datos se 
 
 ---
 
-**Desarrollado con ❤️ para Marine Traffic**
+**Desarrollado con ❤️ para Film Selector**

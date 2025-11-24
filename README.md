@@ -1,8 +1,8 @@
-# 🚢 FilmSelector - Sistema de Consulta de Embarcaciones
+# 🚢 FilmSelector - Sistema de Gestión de Películas
 
 ## 📋 Descripción del Proyecto
 
-Este es un proyecto de prueba técnica que implementa un sistema completo para consultar información de embarcaciones utilizando la API de FilmSelector, con enfoque especial en identificar embarcaciones con destino al puerto de Santa Marta, Colombia.
+Sistema completo para buscar, gestionar y seleccionar películas favoritas, desarrollado como prueba técnica que demuestra habilidades full-stack con .NET 8.0 y JavaScript.
 
 **Stack Tecnológico:**
 - **Backend:** ASP.NET Core 8.0 Web API (C#)
@@ -11,7 +11,7 @@ Este es un proyecto de prueba técnica que implementa un sistema completo para c
 - **Testing:** xUnit con Moq
 - **Resiliencia:** Polly (reintentos + circuit breaker)
 - **Cliente HTTP:** HttpClientFactory
-
+- **Base de Datos:** Entity Framework + SQL Server
 ---
 
 ## 🏗️ Arquitectura del Proyecto
@@ -24,36 +24,43 @@ FilmSelector/
 │   ├── Backend/
 │   │   ├── FilmSelector.Domain/          # Capa de Dominio
 │   │   │   ├── Entities/                  # Entidades de negocio
-│   │   │   │   ├── Vessel.cs
-│   │   │   │   ├── VoyageInfo.cs
-│   │   │   │   ├── Port.cs
-│   │   │   │   └── PortArrival.cs
+│   │   │   │   ├── Film.cs
+│   │   │   │   ├── UserFilm.cs
+│   │   │   │   ├── User.cs
+│   │   │   │   └── Favorite.cs
 │   │   │   └── Common/
 │   │   │       └── Result.cs              # Tipo genérico para resultados
 │   │   │
 │   │   ├── FilmSelector.Application/     # Capa de Aplicación
 │   │   │   ├── Interfaces/                # Interfaces (inversión de dependencias)
-│   │   │   │   └── IFilmSelectorClient.cs
+│   │   │   │   ├── IFilmService.cs
+│   │   │   │   ├── IUserFilmService.cs
+│   │   │   │   └── IAuthService.cs
 │   │   │   ├── Services/                  # Servicios de aplicación
-│   │   │   │   ├── VesselService.cs
-│   │   │   │   └── PortService.cs
+│   │   │   │   ├── FilmService.cs
+│   │   │   │   ├── UserFilmService.cs
+│   │   │   │   └── AuthService.cs
 │   │   │   ├── DTOs/                      # Data Transfer Objects
-│   │   │   │   ├── Responses/             # DTOs de respuesta
-│   │   │   │   └── External/              # DTOs de API externa
+│   │   │   │   ├── Requests/              # DTOs de petición
+│   │   │   │   └── Responses/             # DTOs de respuesta
 │   │   │   └── Mappings/                  # Mapeo de entidades a DTOs
 │   │   │
 │   │   ├── FilmSelector.Infrastructure/  # Capa de Infraestructura
-│   │   │   ├── Clients/                   # Implementación de clientes HTTP
-│   │   │   │   └── FilmSelectorHttpClient.cs
-│   │   │   ├── Configuration/             # Configuración (IOptions pattern)
-│   │   │   │   └── FilmSelectorOptions.cs
+│   │   │   ├── Data/                      # Entity Framework
+│   │   │   │   └── ApplicationDbContext.cs
+│   │   │   ├── Repositories/              # Implementación de repositorios
+│   │   │   │   ├── FilmRepository.cs
+│   │   │   │   └── UserRepository.cs
+│   │   │   ├── Clients/                   # Clientes HTTP externos
+│   │   │   │   └── ExternalFilmService.cs
 │   │   │   └── Extensions/                # Extensiones de servicios
 │   │   │       └── ServiceCollectionExtensions.cs
 │   │   │
 │   │   └── FilmSelector.Api/             # Capa de Presentación
 │   │       ├── Controllers/               # Controladores Web API
-│   │       │   ├── VesselsController.cs
-│   │       │   └── PortsController.cs
+│   │       │   ├── FilmsController.cs
+│   │       │   ├── UserFilmsController.cs
+│   │       │   └── AuthController.cs
 │   │       ├── Middleware/                # Middleware personalizado
 │   │       │   └── ExceptionHandlingMiddleware.cs
 │   │       ├── Program.cs                 # Configuración de la aplicación
@@ -61,10 +68,14 @@ FilmSelector/
 │   │
 │   └── Frontend/                          # Frontend estático
 │       ├── index.html                     # Página principal
+│       ├── login.html                     # Página de login
+│       ├── favorites.html                 # Página de favoritos
 │       ├── css/
 │       │   └── styles.css                 # Estilos personalizados
 │       └── js/
-│           └── app.js                     # Lógica de la aplicación
+│           ├── app.js                     # Lógica principal
+│           ├── auth.js                    # Autenticación
+│           └── favorites.js               # Gestión de favoritos
 │
 ├── tests/
 │   └── FilmSelector.Tests/              # Tests unitarios
@@ -89,7 +100,7 @@ FilmSelector/
 - **Propósito:** Orquesta la lógica de la aplicación y casos de uso
 - **Características:**
   - Define interfaces para servicios externos (inversión de dependencias)
-  - Implementa servicios de aplicación (`VesselService`, `PortService`)
+  - Implementa servicios de aplicación (`FilmService`, `UserFilmService`)
   - DTOs para comunicación con capas externas
   - Mapeo entre entidades de dominio y DTOs
   - Depende solo de la capa de Dominio
@@ -99,8 +110,9 @@ FilmSelector/
 - **Características:**
   - Implementa las interfaces definidas en Application
   - Cliente HTTP para FilmSelector API
+  - Entity Framework con SQL Server
   - Configuración con `IOptions<T>`
-  - Políticas de resiliencia con Polly
+  - Repositorios para acceso a datos
   - HttpClientFactory para gestión eficiente de conexiones
 
 #### 4️⃣ **Capa de Presentación (API)**
@@ -126,7 +138,8 @@ FilmSelector/
 ### 1. Clonar o Descargar el Proyecto
 
 ```bash
-cd d:\informacion\Nueva carpeta - copia\tony
+git clone https://github.com/Tonybonolis1/FilmSelector.net.git
+cd FilmSelector.net
 ```
 
 ### 2. Configurar la API Key de FilmSelector
@@ -162,6 +175,13 @@ dotnet restore
 
 ```powershell
 dotnet build
+```
+
+### 5. Configurar Base de Datos
+
+```powershell
+cd src\Backend\FilmSelector.Api
+dotnet ef database update
 ```
 
 ---
@@ -238,77 +258,100 @@ Los tests incluyen:
 
 ## 📡 Endpoints de la API
 
-### 1. Buscar Embarcaciones
+### 🎭 Gestión de Películas
+
+### 1. Buscar Peliculas
 
 ```http
-GET /api/vessels/search?query={query}
+GET /api/films/search?query={query}&page={page}
 ```
 
 **Parámetros:**
-- `query` (string, requerido): Nombre, MMSI o IMO de la embarcación
+- `query` (string, requerido): Título de la película a buscar
+- `page` (int, opcional): Página de resultados (default: 1)
 
 **Respuesta exitosa (200):**
 ```json
 [
   {
-    "id": "123",
-    "name": "MAERSK ESSEX",
-    "mmsi": "219018314",
-    "imo": "9632179",
-    "shipType": "Container Ship",
-    "flag": "DK"
+  "films": 
+    [
+      {
+        "id": "123",
+        "title": "The Matrix",
+        "overview": "Un hacker aprende la verdad sobre su realidad...",
+        "releaseDate": "1999-03-31T00:00:00",
+        "voteAverage": 8.7,
+        "posterPath": "/path/to/poster.jpg",
+        "genres": ["Action", "Sci-Fi"]
+      }
+    ],
+  "totalCount": 1,
+  "currentPage": 1
   }
 ]
 ```
 
-### 2. Obtener Información de Viaje
+### 2. Obtener Películas Populares
 
 ```http
-GET /api/vessels/{id}/voyage
+GET /api/films/popular?page={page}
 ```
 
-**Parámetros:**
-- `id` (string, requerido): ID de la embarcación
+### 3. Obtener Detalles de Película
 
-**Respuesta exitosa (200):**
+```http
+GET /api/films/{id}
+```
+
+### ❤️ Gestión de Favoritos
+
+### 1. Alternar Favorito
+
+```http
+POST /api/userfilms/favorites/toggle
+```
+
+## Cuerpo:
+
 ```json
 {
-  "vesselId": "123",
-  "vesselName": "MAERSK ESSEX",
-  "destinationPort": "SANTA MARTA",
-  "destinationCountry": "Colombia",
-  "estimatedTimeOfArrival": "2024-12-25T14:30:00Z",
-  "voyageStatus": "Under way using engine",
-  "currentLatitude": 11.2472,
-  "currentLongitude": -74.2017,
-  "currentSpeed": 15.5,
-  "departurePort": "CARTAGENA",
-  "departureTime": "2024-12-20T08:00:00Z",
-  "isDestinationSantaMarta": true
+  "userId": "user-123",
+  "filmId": "film-456"
+}
+```
+## Respuesta (200):
+
+```json
+{
+  "id": "fav-789",
+  "userId": "user-123",
+  "filmId": "film-456",
+  "isFavorite": true,
+  "rating": 0,
+  "addedAt": "2024-01-15T10:30:00Z"
 }
 ```
 
-### 3. Próximas Llegadas a Santa Marta
+### 2. Calificar Película
 
 ```http
-GET /api/ports/santamarta/arrivals
+POST /api/userfilms/rate
+```
+## Cuerpo:
+
+```json
+{
+  "userId": "user-123",
+  "filmId": "film-456",
+  "rating": 5
+}
 ```
 
-**Respuesta exitosa (200):**
-```json
-[
-  {
-    "vesselId": "456",
-    "vesselName": "MSC GÜLSÜN",
-    "mmsi": "372618000",
-    "imo": "9839012",
-    "shipType": "Container Ship",
-    "flag": "PA",
-    "originPort": "KINGSTON",
-    "estimatedTimeOfArrival": "2024-12-26T10:00:00Z",
-    "distanceToPort": 234.5
-  }
-]
+### 3. Obtener Favoritos del Usuario
+
+```http
+GET /api/userfilms/favorites/{userId}
 ```
 
 ### 4. Health Check
